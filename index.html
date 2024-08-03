@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+     <!-- ドット絵風フォントをインポート -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="full-page">
+
+    <header>
+        <h1>スナックじゃんけん</h1>
+    </header>
+
+    <main>
+        <ul>
+            <img src="img/グー.png" alt="" id="gu_btn">
+            <img src="img/チョキ.png" alt="" id="cho_btn">
+            <img src="img/パー.png" alt="" id="par_btn">
+        </ul>
+        <div>ママの出した手は？<br>「<span id="pc_hands">なに？</span>」</div>
+        <div id="judgment">・・・</div>
+        <div id="winImageContainer" style="display: none;">
+            <img id="winImage" src="img/win.png" alt="あなたの勝ち">
+        </div>
+    </main>
+
+    <script>
+
+    // 各ボタンにクリックイベントを設定
+    $("#gu_btn").click(function() {
+        play("グー");
+    });
+
+    $("#cho_btn").click(function() {
+        play("チョキ");
+    });
+
+    $("#par_btn").click(function() {
+        play("パー");
+    });
+
+   function play(userChoice) {
+        //利用可能な選択肢を配列として定義
+        const choices = ["グー", "チョキ", "パー"];
+        const pc_hands = $('#pc_hands');
+        const judgment = $('#judgment');
+
+        // コンピュータの選択をランダムに決定
+        const computerChoice = choices[Math.floor(Math.random() * 3)];
+        pc_hands.text(computerChoice);
+        let result = "";
+
+        //ユーザーとコンピュータの選択を比較して結果を判定
+        if (userChoice === computerChoice){
+            result = "引き分け";
+        } else if (
+            (userChoice === "グー" && computerChoice === "チョキ" )||
+            (userChoice === "チョキ" && computerChoice === "パー" )||
+            (userChoice === "パー" && computerChoice === "グー" )
+        ) {
+            result = "あなたの勝ち";
+        } else {
+            result = "あなたの負け";
+        }
+        judgment.text(result);
+   }
+   
+    </script>
+    </div>
+</body>
+
+</html>
